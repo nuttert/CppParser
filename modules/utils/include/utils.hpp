@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <optional>
 
-void deleteCharacters(std::string& ioString, const std::vector<char>& needDelete);
+std::optional<char> deleteCharacters(std::string& ioString, const std::vector<char>& needDelete);

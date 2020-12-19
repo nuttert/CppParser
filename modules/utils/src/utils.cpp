@@ -2,11 +2,16 @@
 #include <vector>
 #include <algorithm>
 
-void deleteCharacters(std::string& ioString, const std::vector<char>& needDelete)
-{
-    auto checkNeedDelete = [needDelete](char sym)
+std::optional<char> deleteCharacters(std::string& ioString, const std::vector<char>& needDelete)
+{   
+    std::optional<char> extra;
+
+    auto checkNeedDelete = [&extra, needDelete](char sym)
     {
-        return std::find(needDelete.cbegin(), needDelete.cend(), sym) != needDelete.end();
+        auto iterator = std::find(needDelete.cbegin(), needDelete.cend(), sym);
+        if(iterator == needDelete.end()) return false;
+        extra = *iterator;
+        return true;
     };
     auto runIter = ioString.begin();
     auto eraseIter = ioString.begin();
@@ -24,4 +29,5 @@ void deleteCharacters(std::string& ioString, const std::vector<char>& needDelete
     }
     size_t newSize = eraseIter - ioString.begin();
     ioString.resize(newSize);
+    return extra;
 }
